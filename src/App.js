@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       peopleList: data,
       currentCardIndex: 0,
-      formON: false,
+      formOn: false,
     }
     this.nextCard = this.nextCard.bind(this)
     this.previousCard = this.previousCard.bind(this)
@@ -28,21 +28,14 @@ class App extends Component {
     this.setState({ currentCardIndex: index })
   }
 
-  handleEdit = () => {
+  handleEditClick = () => {
     this.setState({
-      formON: true,
+      formOn: true,
       isEdit: true
     })
   }
 
-  // newEdit = (person) => {
-  //   this.setState({
-  //     peopleList: this.state.peopleList.map((p, i) => {
-  //       return i === this.state.currentCardIndex ? person : p
-  //     })
-  //   })
-  // }
-  handleDelete = () => {
+  handleDeleteClick = () => {
     const copyIndex = this.state.currentCardIndex
     const newIndex = this.state.currentCardIndex + 1 === this.state.peopleList.length ? this.state.currentCardIndex - 1 : this.state.currentCardIndex
     this.setState({
@@ -51,9 +44,9 @@ class App extends Component {
     })
   }
 
-  handleNew = () => {
+  handleNewClick = () => {
     this.setState({
-      formON: true,
+      formOn: true,
       isEdit: false
     })
   }
@@ -61,7 +54,7 @@ class App extends Component {
   newCard = (newPerson) => {
     this.setState({
       peopleList: [...this.state.peopleList, newPerson],
-      formON: false,
+      formOn: false,
       isEdit: false
     })
   }
@@ -69,7 +62,7 @@ class App extends Component {
   newEdit = (newPerson) => {
     this.setState({
       peopleList: this.state.peopleList.map((e, i) => i === this.state.currentCardIndex ? Object.assign(e, newPerson) : e),
-      formON: false,
+      formOn: false,
       isEdit: false
     })
   }
@@ -81,7 +74,7 @@ class App extends Component {
         <main>
           <section>
             <h2>{this.state.currentCardIndex + 1} / {this.state.peopleList.length}</h2>
-            {this.state.formON ? (
+            {this.state.formOn ? (
               <Form card={this.state.peopleList[this.state.currentCardIndex]} newCard={this.newCard} newEdit={this.newEdit} isEdit={this.state.isEdit} />
             ) : (
                 <Card card={this.state.peopleList[this.state.currentCardIndex]} />
@@ -91,9 +84,9 @@ class App extends Component {
           <nav className="card-nav">
             <button id="previous" onClick={this.previousCard}>&lt; Previous</button>
             <div className="nav-edit">
-              <button onClick={this.handleEdit}>EDIT</button>
-              <button onClick={this.handleDelete}>DELETE</button>
-              <button onClick={this.handleNew}>NEW</button>
+              <button onClick={this.handleEditClick}>EDIT</button>
+              <button onClick={this.handleDeleteClick}>DELETE</button>
+              <button onClick={this.handleNewClick}>NEW</button>
             </div>
             <button id="next" onClick={this.nextCard}>Next &gt;</button>
           </nav>

@@ -14,32 +14,13 @@ class Form extends Component {
             movieInput: ''
         }
     }
-    handleFirstNameChange = (e) => {
-        this.setState({ name: Object.assign(this.state.name, { first: e.target.value }) })
-    }
 
-    handleLastNameChange = (e) => {
-        this.setState({ name: Object.assign(this.state.name, { last: e.target.value }) })
-    }
-
-    handleCityChange = (e) => {
-        this.setState({ city: e.target.value })
-    }
-
-    handleCountryChange = (e) => {
-        this.setState({ country: e.target.value })
-    }
-
-    handleTitleChange = (e) => {
-        this.setState({ title: e.target.value })
-    }
-
-    handleEmployerChange = (e) => {
-        this.setState({ employer: e.target.value })
-    }
-
-    handleMovieChange = (e) => {
-        this.setState({ movieInput: e.target.value })
+    handleChange = (e) => {
+        if (e.target.className.includes('name')) {
+            this.setState({ name: Object.assign(this.state.name, { [e.target.id]: e.target.value }) })
+        } else {
+            this.setState({ [e.target.id]: e.target.value })
+        }
     }
 
     addMovie = (e) => {
@@ -62,17 +43,22 @@ class Form extends Component {
         return (
             <div>
                 <form onSubmit={e => this.handleSubmit(e)}>
-                    <label>Name:</label><input value={this.state.name.first} onChange={e => this.handleFirstNameChange(e)} placeholder='Enter First Name' />
-                    <input value={this.state.name.last} onChange={e => this.handleLastNameChange(e)} placeholder='Enter Last Name' />
+                    <label>Name:</label>
+                    <input id="first" className="name" value={this.state.name.first} onChange={e => this.handleChange(e)} placeholder='Enter First Name' />
+                    <input id="last" className="name" value={this.state.name.last} onChange={e => this.handleChange(e)} placeholder='Enter Last Name' />
                     <br />
-                    <label>From:</label><input value={this.state.city} onChange={e => this.handleCityChange(e)} placeholder="Enter City" />
-                    <input value={this.state.country} onChange={e => this.handleCountryChange(e)} placeholder="Enter Country" />
+                    <label>From:</label>
+                    <input id="city" value={this.state.city} onChange={e => this.handleChange(e)} placeholder="Enter City" />
+                    <input id="country" value={this.state.country} onChange={e => this.handleChange(e)} placeholder="Enter Country" />
                     <br />
-                    <label>Job Title:</label><input value={this.state.title} onChange={e => this.handleTitleChange(e)} placeholder="Enter Job Title" />
+                    <label>Job Title:</label>
+                    <input id="title" value={this.state.title} onChange={e => this.handleChange(e)} placeholder="Enter Job Title" />
                     <br />
-                    <label>Employer:</label><input value={this.state.employer} onChange={e => this.handleEmployerChange(e)} placeholder="Enter Employer" />
+                    <label>Employer:</label>
+                    <input id="employer" value={this.state.employer} onChange={e => this.handleChange(e)} placeholder="Enter Employer" />
                     <br />
-                    <label>Favorite Movies:</label><input value={this.state.movieInput} onChange={e => this.handleMovieChange(e)} placeholder="Enter Movie to be added to Favorites" />
+                    <label>Favorite Movies:</label>
+                    <input id="movieInput" value={this.state.movieInput} onChange={e => this.handleChange(e)} placeholder="Enter Movie to be added to Favorites" />
                     <button onClick={(e) => this.addMovie(e)}>Add Movie</button>
                     <br />
                     <ol>
